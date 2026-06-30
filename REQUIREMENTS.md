@@ -43,6 +43,8 @@ Source: [tests/test_e2e_plan_git.py](tests/test_e2e_plan_git.py)
 10. Apply must allow named foreign-key-constraint addition commits when referenced tables are present in migration order.
 11. Apply with transactional executor must commit successful commit transactions and update progress only after the transaction commit.
 12. Apply with transactional executor must roll back failing commit transactions and preserve last-applied progress at the previous successful commit.
+13. Apply with Postgres DSN must execute generated DDL against a real Postgres database and converge schema state for successful commits.
+14. On real Postgres execution failure within a commit, apply must roll back that commit transaction, record failure at that commit, and leave prior committed state intact.
 
 ## BDD Requirements
 

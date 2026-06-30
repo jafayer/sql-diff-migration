@@ -36,7 +36,7 @@ Use this matrix as the project benchmark for migration-engine progress. Status v
 | IR + compiler architecture for DDL emission | Complete | 100% | `sql_diff_migrate/ir.py`, `sql_diff_migrate/compiler.py`, compiler ordering test | Runtime DDL paths (`plan`/`apply`) route through IR -> compiler. |
 | Apply safety guardrails (unsafe narrowing block) | Complete | 100% | `tests/test_e2e_apply_git.py`, BDD narrowing scenario | Blocks unsafe type narrowing before state advance. |
 | Override-based recovery (`skip`, `superseded_by`) | Complete | 100% | `tests/test_cli.py`, `tests/test_e2e_apply_git.py`, BDD recovery scenario | Includes replacement-commit validity checks in apply range. |
-| Transactional DDL execution (real DB execution) | Partial | 60% | `tests/test_pipeline_apply_transactional.py`, `sql_diff_migrate/ddl_executor.py` | Per-commit transaction/rollback path exists behind `--db-url`; replay-against-real-Postgres test suite still pending. |
+| Transactional DDL execution (real DB execution) | Complete | 100% | `tests/test_pipeline_apply_transactional.py`, `tests/test_integration_postgres_apply.py`, `sql_diff_migrate/ddl_executor.py` | Per-commit transaction/rollback verified end-to-end against containerised Postgres via testcontainers. |
 | Advisory locking for concurrent runs | Not Started | 0% | N/A | Planned milestone to prevent concurrent apply conflicts. |
 | Inline constraint normalization into shared IR | Not Started | 0% | N/A | Next architecture slice for generic constraint lowering. |
 
@@ -164,6 +164,12 @@ Run unit and e2e tests:
 
 ```bash
 uv run pytest -q
+```
+
+Run Postgres transactional integration tests (requires Docker):
+
+```bash
+uv run pytest -q tests/test_integration_postgres_apply.py
 ```
 
 Run BDD scenarios:
