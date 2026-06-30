@@ -1,0 +1,19 @@
+[project]
+name = "sql-diff-migrate"
+version = "0.1.0"
+description = "Git diff-based SQL migration planner and executor"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "psycopg[binary]>=3.2.0",
+    "sqlglot>=30.12.0",
+]
+
+[project.scripts]
+sql-diff-migrate = "sql_diff_migrate.cli:main"
+
+[dependency-groups]
+dev = [
+    "behave>=1.3.3",
+    "pytest>=9.1.1",
+]
